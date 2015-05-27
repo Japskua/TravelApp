@@ -1,9 +1,15 @@
 <template name="header">
     <nav>
         <div class="nav-wrapper">
-            <a class="brand-logo" href="{{pathFor 'home'}}">TravelApp</a>
+            <a class="brand-logo center" href="{{pathFor 'home'}}">TravelApp</a>
+
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+                <li><a href="{{pathFor 'home'}}">Locations</a></li>
+                <li><a href="{{pathFor 'commentsBoard'}}">CommentsBoard</a></li>
+            </ul>
+
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="sass.html">{{> atNavButton}}</a></li>
+                <li><a href="#">{{> atNavButton}}</a></li>
             </ul>
         </div>
     </nav>

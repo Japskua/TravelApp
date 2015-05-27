@@ -9,3 +9,7 @@ Meteor.publish('locations', function(options) {
 
     return Locations.find({});
 });
+
+Meteor.publish('comments', function() {
+    return Comments.find();
+});

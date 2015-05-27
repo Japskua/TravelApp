@@ -18,11 +18,20 @@ if (Locations.find().count() === 0) {
     for (var i=0; i<10; i++) {
         Locations.insert({
             name : "Test location #" + i,
-            description : "Description #" + 1,
+            description : "Description #" + i,
             author : sacha.profile.name,
             userId : sacha._id,
             submitted : moment().format(),
             coords : [0,1]
+        });
+    }
+}
+
+if (Comments.find().count() === 0) {
+    for (var j=0; j<10; j++) {
+        Comments.insert({
+            name : "Comment #" + j,
+            score : 0
         });
     }
 }
