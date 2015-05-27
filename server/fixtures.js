@@ -31,7 +31,9 @@ if (Comments.find().count() === 0) {
     for (var j=0; j<10; j++) {
         Comments.insert({
             name : "Comment #" + j,
-            score : 0
+            score : 0,
+            author : "Author Number " + j,
+            text : "Just random comment number " + j
         });
     }
 }

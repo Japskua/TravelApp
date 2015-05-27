@@ -44,6 +44,8 @@ var CommentBoard = ReactMeteor.createClass({
             key={model._id}
             name={model.name}
             score={model.score}
+            author={model.author}
+            text={model.text}
             className={model._id === _id ? "selected" : ""}
             onClick={this.selectComment.bind(this, model._id)}
         />;
