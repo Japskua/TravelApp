@@ -1,3 +1,11 @@
+/**
+ * This directive is necessary to enable preprocessing of JSX tags:
+ * @jsx React.DOM
+ */
+
+var cx = React.addons.classSet;
+
+
 var Comment = ReactMeteor.createClass({
     render : function() {
         return (
@@ -23,12 +31,11 @@ var CommentList = ReactMeteor.createClass({
         };
     },
     render : function() {
-        console.log(this.state.data);
         var commentNodes = this.state.data.map(function(comment){
             return (
-                <Comment author={comment.author}>
-                    Content:{comment.text}
-                    Score:{comment.score}
+                <Comment key={comment._id} author={comment.author}>
+                        Content:{comment.text}
+                        Score:{comment.score}
                 </Comment>
             );
         });
@@ -41,11 +48,12 @@ var CommentList = ReactMeteor.createClass({
 });
 
 var CommentForm = ReactMeteor.createClass({
-    handleSubmit : function() {
+    handleSubmit : function(e) {
         // Prevent the default behavior
-        //e.preventDefault();
         // Then continue onwards
-        var author = this.refs.author.getDOMNode().value.trim();
+        e.preventDefault();
+        var author = React.findDOMNode(this.refs.author).value.trim();
+        //var author = this.refs.author.getDOMNode().value.trim();
         var text = this.refs.text.getDOMNode().value.trim();
         if (!text || !author) {
             return;
@@ -53,13 +61,12 @@ var CommentForm = ReactMeteor.createClass({
         this.props.onCommentSubmit({ author : author, text : text});
         this.refs.author.getDOMNode().value = '';
         this.refs.text.getDOMNode().value = '';
-        return false;
     },
     render : function() {
         return (
             <form className="commentForm" onSubmit={this.handleSubmit}>
-                <input type="text" placeholder="Your name" />
-                <input type="text" placeholder="Say something..." />
+                <input type="text" placeholder="Your name" ref="author"/>
+                <input type="text" placeholder="Say something..." ref="text"/>
                 <input type="submit" value="Post" />
             </form>
         )
@@ -84,11 +91,13 @@ var CommentBox = ReactMeteor.createClass({
                 <CommentList data={this.state.data}/>
                 <CommentForm onCommentSubmit={this.handleCommentSubmit} />
             </div>
-        )
+        );
     }
 });
 
-React.renderComponent(
-    <CommentBox />,
-    document.getElementById('container')
-);
+CommentsBoxRender = function() {
+    React.render(
+        <CommentBox />,
+        document.getElementById('container')
+    );
+};
