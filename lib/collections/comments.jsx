@@ -3,7 +3,7 @@
  * @jsx React.DOM
  */
 
-var cx = React.addons.classSet;
+//var cx = React.addons.classSet;
 
 Comments = new Meteor.Collection('comments');
 
@@ -13,7 +13,8 @@ Meteor.methods({
     }
 });
 
-var CommentBoard = ReactMeteor.createClass({
+var CommentBoard = React.createClass({
+    mixins : [ReactMeteor.Mixin],
     templateName : 'CommentBoard',
 
     startMeteorSubscriptions : function() {
@@ -81,6 +82,7 @@ var CommentBoard = ReactMeteor.createClass({
 });
 
 var Comment = React.createClass({
+    mixins : [ReactMeteor.Mixin],
     shouldComponentUpdate : function(nextProps, nextState) {
         var { name, score, ...rest } = this.props;
         return name !== nextProps.name || score !== nextProps.score || rest.className !== nextProps.className;

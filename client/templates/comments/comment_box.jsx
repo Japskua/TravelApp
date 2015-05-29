@@ -3,10 +3,19 @@
  * @jsx React.DOM
  */
 
-var cx = React.addons.classSet;
+//var cx = React.addons.classSet;
 
+if (Meteor.isClient) {
+    console.log(document.getElementById('container'));
+    Meteor.startup(() =>
+        React.render(
+            <CommentBox />,
+            document.getElementById('container')
+    ));
+}
 
-var Comment = ReactMeteor.createClass({
+var Comment = React.createClass({
+    mixins : [ReactMeteor.Mixin],
     render : function() {
         return (
             <div className="commentBox">
@@ -19,7 +28,8 @@ var Comment = ReactMeteor.createClass({
     }
 });
 
-var CommentList = ReactMeteor.createClass({
+var CommentList = React.createClass({
+    mixins : [ReactMeteor.Mixin],
     // Subsribe to Meteor
     startMeteorSubscriptions : function() {
         Meteor.subscribe('comments');
@@ -47,7 +57,8 @@ var CommentList = ReactMeteor.createClass({
     }
 });
 
-var CommentForm = ReactMeteor.createClass({
+var CommentForm = React.createClass({
+    mixins : [ReactMeteor.Mixin],
     handleSubmit : function(e) {
         // Prevent the default behavior
         // Then continue onwards
@@ -73,7 +84,8 @@ var CommentForm = ReactMeteor.createClass({
     }
 });
 
-var CommentBox = ReactMeteor.createClass({
+var CommentBox = React.createClass({
+    mixins : [ReactMeteor.Mixin],
     handleCommentSubmit : function(comment) {
         var comments = this.state.data;
         comments.push(comment);

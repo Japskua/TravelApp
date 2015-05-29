@@ -3,17 +3,26 @@
  * @jsx React.DOM
  */
 
-var cx = React.addons.classSet;
+//var cx = React.addons.classSet;
 
-var Location = ReactMeteor.createClass({
+if (Meteor.isClient) {
+    //console.log(document.getElementById('container'));
+    Meteor.startup(() =>
+        React.render(<LocationsList/>, document.getElementById('container')) );
+}
+
+var Location = React.createClass({
+    mixins : [ReactMeteor.Mixin],
     render : function() {
         return (
             <div className="location card col s4">
                 <div className="card-image">
                     <p>Image here</p>
+                    <p>{this.props.name}</p>
                     <span className="card-title">{this.props.name}</span>
                 </div>
                 <div className="location-content card-content">
+                    <p>{this.props.name}</p>
                     <p>{this.props.coords}</p>
                     <p>{this.props.description}</p>
                     <p>Added by {this.props.author} on {this.props.submitted}</p>
@@ -26,7 +35,8 @@ var Location = ReactMeteor.createClass({
     }
 });
 
-var LocationsList = ReactMeteor.createClass({
+var LocationsList = React.createClass({
+    mixins : [ReactMeteor.Mixin],
     templateName : 'LocationsList',
     startMeteorSubscriptions : function() {
         Meteor.subscribe('locations');
@@ -49,17 +59,16 @@ var LocationsList = ReactMeteor.createClass({
             );
         });
         return (
-            <div className="locationsList">
-                {locationNodes}
+            <div className="locationsList locations page row">
+                <div className="col s12">
+                    {locationNodes}
+                </div>
             </div>
         );
     }
 });
 
-LocationsListRender = function() {
-    React.render(
-        <LocationsList />,
-        document.getElementById('container')
-    );
-};
-
+React.render(
+    <LocationsList />,
+    document.getElementById('container')
+);
