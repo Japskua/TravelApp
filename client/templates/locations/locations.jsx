@@ -9,16 +9,16 @@ var Location = ReactMeteor.createClass({
     render : function() {
         return (
             <div className="location card col s4">
-                <div class="card-image">
+                <div className="card-image">
                     <p>Image here</p>
-                    <span class="card-title">{this.props.name}</span>
+                    <span className="card-title">{this.props.name}</span>
                 </div>
-                <div class="location-content card-content">
+                <div className="location-content card-content">
                     <p>{this.props.coords}</p>
                     <p>{this.props.description}</p>
                     <p>Added by {this.props.author} on {this.props.submitted}</p>
                 </div>
-                <div class="card-action">
+                <div className="card-action">
                     <a href="#">Link</a>
                 </div>
             </div>
