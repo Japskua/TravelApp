@@ -2,15 +2,6 @@
  * This directive is necessary to enable preprocessing of JSX tags:
  * @jsx React.DOM
  */
-
-//var cx = React.addons.classSet;
-
-if (Meteor.isClient) {
-    //console.log(document.getElementById('container'));
-    Meteor.startup(() =>
-        React.render(<LocationsList/>, document.getElementById('container')) );
-}
-
 var Location = React.createClass({
     mixins : [ReactMeteor.Mixin],
     render : function() {
@@ -68,7 +59,8 @@ var LocationsList = React.createClass({
     }
 });
 
-React.render(
-    <LocationsList />,
-    document.getElementById('container')
-);
+Template.locationsList.onRendered(function () {
+    console.log("Template rendered!");
+    React.render(<LocationsList/>, document.getElementById('container'));
+});
+
